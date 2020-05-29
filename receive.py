@@ -19,7 +19,7 @@ def callback(ch, method, properties, body):
       port=3306)
     cur = conn.cursor()
 
-    query = "INSERT INTO corona.{0}(name, cases, deaths, recoveries, date) VALUES (%s, %s, %s, %s, %s)".format(method.routing_key)
+    query = "REPLACE INTO corona.{0}(name, cases, deaths, recoveries, date) VALUES (%s, %s, %s, %s, %s)".format(method.routing_key)
 
     cur.execute(query,( data["name"],data["cases"],data["deaths"],data["recoveries"],data["date"]))
     conn.commit()
